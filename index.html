@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta 💖</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-container {
+      width: 90%;
+      max-width: 360px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    h1 {
+      color: #e91e63;
+    }
+
+    p {
+      color: #444;
+      line-height: 1.5;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 18px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      background: #e91e63;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .status {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #e91e63;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card-container">
+    <div id="card" class="card" onclick="openCard()">
+      💌 Tocá para abrir la carta 💌
+    </div>
+  </div>
+
+  <!-- Audios -->
+  <audio id="music1" src="My Little Love.mp3"></audio>
+  <audio id="music2" src="Rolling in the Deep.mp3"></audio>
+  <audio id="music3" src="When We Were Young.mp3"></audio>
+
+  <script>
+    let opened = false;
+
+    function openCard() {
+      if (opened) return;
+      opened = true;
+
+      const card = document.getElementById("card");
+      card.innerHTML = `
+        <h1>Para Vic ❤️</h1>
+        <p>
+          Espero se te pase todo lo malo y todo te mejore Vic ❤️
+          ❤️Te dejo con tus 3 temas de aldele❤️
+        </p>
+
+        <button onclick="playMusic(1, event)">🎵 Reproducir My Little Love</button>
+        <button onclick="playMusic(2, event)">🎶 Reproducir Rolling in the Deep</button>
+        <button onclick="playMusic(3, event)">🎼 Reproducir When We Were</button>
+
+        <div id="status" class="status"></div>
+      `;
+    }
+
+    function playMusic(number, event) {
+      event.stopPropagation();
+
+      const musics = [
+        document.getElementById("music1"),
+        document.getElementById("music2"),
+        document.getElementById("music3")
+      ];
+
+      const status = document.getElementById("status");
+
+      // Pausar todas
+      musics.forEach(m => {
+        m.pause();
+        m.currentTime = 0;
+      });
+
+      // Reproducir la elegida
+      musics[number - 1].play();
+      status.textContent = `🎵 Se está reproduciendo la música ${number}`;
+    }
+  </script>
+
+</body>
+</html>
